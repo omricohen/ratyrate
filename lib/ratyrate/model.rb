@@ -63,7 +63,7 @@ module Ratyrate
     end
   end
 
-  def overall_avg(user)
+  def overall_avg
      avg = OverallAverage.where(rateable_id: self.id)
      #FIXME: Fix the bug when the movie has no ratings
      unless avg.empty? 
@@ -78,7 +78,6 @@ module Ratyrate
        end
        overall_avg = (overall_score / dimensions_count).to_f.round(1)
        AverageCache.create! do |a|
-         a.rater_id = user.id
          a.rateable_id = self.id
          a.avg = overall_avg
        end
